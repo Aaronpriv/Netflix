@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Netflix Catálogo </title>
+<link rel="stylesheet" href="css/serie.css">
+<link rel="stylesheet" href="css/normalice.css">
+</head>
+<body>
+<header>
+     <div class="logo">NETFLIX</div>
+  <h1>Catálogo de Películas</h1>
+  <nav>
+            <a href="index.html">Inicio</a>
+            <a href="serie.html">Series</a>
+            <a href="#">Películas</a>
+            <a href="novedades-populares.html">planes</a>
+            <a href="catalogo.html">Catalogo</a>
+  </nav>
+</header>
+<script>
+  const movies = [
+    {
+      title: "Club de peleas",
+      description: "Un ladrón que roba secretos mediante el uso de sueños compartidos debe realizar un último trabajo para recuperar su vida.",
+      poster: "https://m.media-amazon.com/images/I/51v5ZpFyaFL._AC_SY679_.jpg"
+    },
+    {
+      title: "The Matrix",
+      description: "Un hacker descubre la verdad sobre su realidad y su destino como el salvador de la humanidad.",
+      poster: "https://m.media-amazon.com/images/I/51EG732BV3L._AC_.jpg"
+    },
+    {
+      title: "Interstellar",
+      description: "Un grupo de exploradores viaja más allá del sistema solar para encontrar un nuevo hogar para la humanidad.",
+      poster: "https://m.media-amazon.com/images/I/91kFYg4fX3L._AC_SY679_.jpg"
+    },
+    {
+      title: "Parasite",
+      description: "Una familia pobre se infiltra progresivamente en la vida de una familia adinerada con consecuencias imprevisibles.",
+      poster: "https://m.media-amazon.com/images/I/71c05lTE03L._AC_SY679_.jpg"
+    },
+    {
+      title: "Batman",
+      description: "Batman enfrenta a una nueva amenaza, el Joker, en una batalla por el alma de Gotham.",
+      poster: "https://static.posters.cz/image/1300/198201.jpg"
+    },
+    {
+      title: "Avengers: Endgame",
+      description: "Los héroes más poderosos de la Tierra luchan para deshacer el daño causado por Thanos.",
+      poster:"https://m.media-amazon.com/images/I/81ExhpBEbHL._AC_SY679_.jpg"
+    }
+  ];
+
+  const moviesGrid = document.getElementById('moviesGrid');
+  const searchInput = document.getElementById('search');
+
+  function createMovieCard(movie) {
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+
+    const img = document.createElement('img');
+    img.src = movie.poster;
+    img.alt = `${movie.title} poster`;
+    img.className = 'movie-poster';
+
+    const info = document.createElement('div');
+    info.className = 'movie-info';
+
+    const title = document.createElement('h3');
+    title.className = 'movie-title';
+    title.textContent = movie.title;
+
+    const desc = document.createElement('p');
+    desc.className = 'movie-description';
+    desc.textContent = movie.description;
+
+    info.appendChild(title);
+    info.appendChild(desc);
+    card.appendChild(img);
+    card.appendChild(info);
+
+    return card;
+  }
+
+  function displayMovies(list) {
+    moviesGrid.innerHTML = '';
+    if (list.length === 0) {
+      const noResult = document.createElement('p');
+      noResult.textContent = 'No se encontraron películas.';
+      noResult.style.textAlign = 'center';
+      noResult.style.color = '#f39c12';
+      noResult.style.fontWeight = '700';
+      moviesGrid.appendChild(noResult);
+      return;
+    }
+    list.forEach(movie => {
+      const card = createMovieCard(movie);
+      moviesGrid.appendChild(card);
+    });
+  }
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    const filtered = movies.filter(m => m.title.toLowerCase().includes(query));
+    displayMovies(filtered);
+  });
+
+  // Visualisación 
+  displayMovies(movies);
+</script>
+</body>
+</html>
